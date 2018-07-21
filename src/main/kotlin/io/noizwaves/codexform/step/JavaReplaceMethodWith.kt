@@ -34,7 +34,7 @@ abstract class JavaReplaceMethodWith(
         val newContents = sequenceOf(
                 lines.subList(0, declaredOn + 1),
                 substitutedLines(),
-                lines.subList(closedOn, lines.size - 1)
+                lines.subList(closedOn, lines.size)
         ).flatten().toList()
 
         Files.write(file, newContents)
