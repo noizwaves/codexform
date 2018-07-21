@@ -7,8 +7,14 @@ import java.nio.file.Paths
 
 fun main(args: Array<String>) {
     val example = Transformation(listOf(
+            // FleetTruck
             JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", "returnFromInspection", "Implement me"),
-            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", "fleetDomainEvents")
+            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", "fleetDomainEvents"),
+
+            // FleetTruckEventStoreRepositoryAdapter
+            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", "save"),
+            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", "findOne"),
+            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", "findAll")
     ))
 
     if (args.isEmpty()) {
