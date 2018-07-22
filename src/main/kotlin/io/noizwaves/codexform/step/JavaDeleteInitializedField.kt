@@ -14,7 +14,7 @@ class JavaDeleteInitializedField(private val packageName: String, private val cl
         return packageMatch && classMatch
     }
 
-    override fun applyChange(file: Path) {
+    override fun applyChange(file: Path, workingDir: Path) {
         val lines = Files.readAllLines(file)
 
         val maybeDeclaredOn = findLineNumDeclaringField(lines, field)
@@ -60,6 +60,6 @@ class JavaDeleteInitializedField(private val packageName: String, private val cl
     }
 
     override fun toString(): String {
-        return "DeleteJavaField($className, $field)"
+        return "JavaDeleteInitializedField($className, $field)"
     }
 }

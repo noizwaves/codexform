@@ -5,26 +5,18 @@ import java.nio.file.Path
 import java.util.*
 import kotlin.streams.toList
 
-abstract class JavaReplaceMethodWith(
-        private val packageName: String,
-        private val className: String,
-        private val method: Method
-) : Step {
-    override fun appliesTo(file: Path): Boolean {
-        val lines = Files.readAllLines(file)
-
-        val packageMatch = lines.stream().anyMatch { it == "package $packageName;" }
-        val classMatch = lines.stream().anyMatch { it.contains("class $className")}
-
-        return packageMatch && classMatch
-    }
-
-    override fun applyChange(file: Path, workingDir: Path) {
-        val lines = Files.readAllLines(file)
+class JavaReplaceMethodWithOtherMethodBody(
+        targetPackageName: String,
+        private val targetClassName: String,
+        private val method: Method,
+        private val sourceFile: Path
+) : JavaReplaceMethodWith(targetPackageName, targetClassName, method) {
+    override fun substitutedLines(workingDir: Path): List<String> {
+        val lines = Files.readAllLines(workingDir.resolve(sourceFile))
 
         val maybeDeclaredOn = findLineNumContainingMethod(lines, method)
         if (!maybeDeclaredOn.isPresent) {
-            throw RuntimeException("Method `$method` not found in `$className`")
+            throw RuntimeException("Method `$method` not found in `$sourceFile`")
         }
 
         val declaredOn = maybeDeclaredOn.get()
@@ -32,16 +24,16 @@ abstract class JavaReplaceMethodWith(
 
         val closedOn = findMethodClosureLineNum(lines, declarationLine)
 
-        val newContents = sequenceOf(
-                lines.subList(0, declaredOn + 1),
-                substitutedLines(workingDir),
-                lines.subList(closedOn, lines.size)
-        ).flatten().toList()
+        // Assuming single line signature
+        val bodyStartsAt = declaredOn + 1
+        val bodyEndsAt = closedOn - 1
 
-        Files.write(file, newContents)
+        return lines.subList(bodyStartsAt, bodyEndsAt + 1)
     }
 
-    abstract fun substitutedLines(workingDir: Path): List<String>
+    override fun toString(): String {
+        return "JavaReplaceMethodWithOtherMethodBody($targetClassName, $method, $sourceFile)"
+    }
 }
 
 private fun findLineNumContainingMethod(lines: List<String>, method: Method) : Optional<Int> {

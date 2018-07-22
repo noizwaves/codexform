@@ -7,18 +7,18 @@ import kotlin.streams.toList
 
 
 class Transformation(private val steps: List<Step>) {
-    fun apply(directory: Path) {
-        steps.forEach { applyStep(directory, it) }
+    fun apply(transformDir: Path, workingDir: Path) {
+        steps.forEach { applyStep(transformDir, workingDir, it) }
     }
 
-    private fun applyStep(directory: Path, step: Step) {
-        Files.walk(directory).toList()
+    private fun applyStep(transformDir: Path, workingDir: Path, step: Step) {
+        Files.walk(transformDir).toList()
                 .stream()
                 .filter { Files.isRegularFile(it) }
                 .filter(step::appliesTo)
                 .forEach {
                     println("> Applying $step")
-                    step.applyChange(it)
+                    step.applyChange(it, workingDir)
                 }
     }
 }

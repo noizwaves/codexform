@@ -15,7 +15,7 @@ class JavaDeleteMethod(private val packageName: String, private val className: S
         return packageMatch && classMatch
     }
 
-    override fun applyChange(file: Path) {
+    override fun applyChange(file: Path, workingDir: Path) {
         val lines = Files.readAllLines(file)
 
         val maybeDeclaredOn = findLineNumContainingMethod(lines, method)
@@ -65,7 +65,7 @@ class JavaDeleteMethod(private val packageName: String, private val className: S
     }
 
     override fun toString(): String {
-        return "DeleteJavaMethod($className, $method)"
+        return "JavaDeleteMethod($className, $method)"
     }
 }
 

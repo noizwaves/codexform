@@ -7,10 +7,34 @@ import java.nio.file.Paths
 fun main(args: Array<String>) {
     val lab5 = Transformation(listOf(
             // FleetTruck
+            JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("FleetTruck", listOf("List<FleetTruckEvent>"))),
             JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("fleetDomainEvents")),
             JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("handleEvent", listOf("FleetTruckEvent"))),
             JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("handleEvent", listOf("FleetTruckPurchased"))),
             JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("handleEvent", listOf("FleetTruckReturnedFromInspection"))),
+
+            // Fleet truck copy lab 4 implementation
+            JavaReplaceMethodWithOtherMethodBody(
+                    "io.pivotal.pal.wehaul.fleet.domain", "FleetTruck",
+                    Method("returnFromInspection", listOf("String", "int")),
+                    Paths.get("banana/FleetTruck.java")
+            ),
+            JavaReplaceMethodWithOtherMethodBody(
+                    "io.pivotal.pal.wehaul.fleet.domain", "FleetTruck",
+                    Method("sendForInspection"),
+                    Paths.get("banana/FleetTruck.java")
+            ),
+            JavaReplaceMethodWithOtherMethodBody(
+                    "io.pivotal.pal.wehaul.fleet.domain", "FleetTruck",
+                    Method("removeFromYard"),
+                    Paths.get("banana/FleetTruck.java")
+            ),
+            JavaReplaceMethodWithOtherMethodBody(
+                    "io.pivotal.pal.wehaul.fleet.domain", "FleetTruck",
+                    Method("returnToYard", listOf("int")),
+                    Paths.get("banana/FleetTruck.java")
+            ),
+
             JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("handleEvent", listOf("FleetTruckSentForInspection"))),
             JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("handleEvent", listOf("FleetTruckRemovedFromYard"))),
             JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("handleEvent", listOf("FleetTruckReturnedToYard"))),
@@ -40,11 +64,12 @@ fun main(args: Array<String>) {
         return
     }
 
-    val targetPath = args[0]
-    lab5.apply(Paths.get(targetPath))
+    val transformDir = args[0]
+    val workingDir = args[1]
+    lab5.apply(Paths.get(transformDir), Paths.get(workingDir))
 }
 
 fun showUsage() {
-    println("""Usage: java -jar codexform.jar [path to transformation target]""")
+    println("""Usage: java -jar codexform.jar (transform dir) (working dir)""")
 }
 
