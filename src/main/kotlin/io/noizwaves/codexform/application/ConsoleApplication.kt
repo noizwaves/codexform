@@ -2,26 +2,27 @@ package io.noizwaves.codexform.application
 
 import io.noizwaves.codexform.step.JavaReplaceMethodWithComment
 import io.noizwaves.codexform.step.JavaReplaceMethodWithReturnNull
+import io.noizwaves.codexform.step.Method
 import io.noizwaves.codexform.transformation.Transformation
 import java.nio.file.Paths
 
 fun main(args: Array<String>) {
     val lab5 = Transformation(listOf(
             // FleetTruck
-            JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", "returnFromInspection", "Implement me"),
-            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", "fleetDomainEvents"),
+            JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("returnFromInspection"), "Implement me"),
+            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("fleetDomainEvents")),
 
             // FleetTruckEventStoreRepositoryAdapter
-            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", "save"),
-            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", "findOne"),
-            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", "findAll"),
+            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", Method("save")),
+            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", Method("findOne")),
+            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", Method("findAll")),
 
             // EventPublishingFleetTruckRepositoryDecorator
-            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", "save"),
-            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", "findOne"),
-            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", "findAll"),
-            JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", "delete", "Implement me"),
-            JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", "deleteAll", "Implement me")
+            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("save")),
+            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("findOne")),
+            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("findAll")),
+            JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("delete"), "Implement me"),
+            JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("deleteAll"), "Implement me")
     ))
 
     if (args.isEmpty()) {

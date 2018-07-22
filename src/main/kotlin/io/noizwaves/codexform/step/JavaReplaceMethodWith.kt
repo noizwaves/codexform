@@ -7,7 +7,7 @@ import java.util.*
 abstract class JavaReplaceMethodWith(
         private val packageName: String,
         private val className: String,
-        private val methodName: String
+        private val method: Method
 ) : Step {
     override fun appliesTo(file: Path): Boolean {
         val lines = Files.readAllLines(file)
@@ -21,9 +21,9 @@ abstract class JavaReplaceMethodWith(
     override fun applyChange(file: Path) {
         val lines = Files.readAllLines(file)
 
-        val maybeDeclaredOn = findLineNumContainingString(lines, "$methodName(")
+        val maybeDeclaredOn = findLineNumContainingString(lines, method)
         if (!maybeDeclaredOn.isPresent) {
-            throw RuntimeException("Method `$methodName` not found in `$className`")
+            throw RuntimeException("Method `$method` not found in `$className`")
         }
 
         val declaredOn = maybeDeclaredOn.get()
@@ -43,9 +43,9 @@ abstract class JavaReplaceMethodWith(
     abstract fun substitutedLines(): List<String>
 }
 
-private fun findLineNumContainingString(lines: List<String>, content: String) : Optional<Int> {
+private fun findLineNumContainingString(lines: List<String>, method: Method) : Optional<Int> {
     val matchingLine = lines.stream()
-            .filter { it.contains(content) }
+            .filter(method::isDeclaredOn)
             .findFirst()
 
     return matchingLine.map { lines.indexOf(it) }
