@@ -1,6 +1,7 @@
 package io.noizwaves.codexform.application
 
 import io.noizwaves.codexform.step.JavaReplaceMethodWithComment
+import io.noizwaves.codexform.step.JavaReplaceMethodWithReturnConstant
 import io.noizwaves.codexform.step.JavaReplaceMethodWithReturnNull
 import io.noizwaves.codexform.step.Method
 import io.noizwaves.codexform.transformation.Transformation
@@ -20,10 +21,10 @@ fun main(args: Array<String>) {
             JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("save", listOf("S"))),
             JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("save", listOf("Iterable<S>"))),
             JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("findOne", listOf("String"))),
-            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("exists", listOf("String"))),
+            JavaReplaceMethodWithReturnConstant("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("exists", listOf("String")), "false"),
             JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("findAll")),
             JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("findAll", listOf("Iterable<String>"))),
-            JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("count")),
+            JavaReplaceMethodWithReturnConstant("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("count"), "-1"),
             JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("delete", listOf("String")), "Implement me"),
             JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("delete", listOf("FleetTruck")), "Implement me"),
             JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", Method("delete", listOf("Iterable<? extends FleetTruck>")), "Implement me"),
