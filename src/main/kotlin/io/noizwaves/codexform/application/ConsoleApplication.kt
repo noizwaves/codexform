@@ -9,6 +9,7 @@ fun main(args: Array<String>) {
             // FleetTruck
             JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("fleetDomainEvents")),
             JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("handleEvent", listOf("FleetTruckEvent"))),
+            JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("handleEvent", listOf("FleetTruckPurchased"))),
             JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("handleEvent", listOf("FleetTruckReturnedFromInspection"))),
             JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("handleEvent", listOf("FleetTruckSentForInspection"))),
             JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("handleEvent", listOf("FleetTruckRemovedFromYard"))),

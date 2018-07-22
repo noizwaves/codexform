@@ -17,7 +17,7 @@ class Transformation(private val steps: List<Step>) {
                 .filter { Files.isRegularFile(it) }
                 .filter(step::appliesTo)
                 .forEach {
-                    println("> $it : Applying $step")
+                    println("> Applying $step")
                     step.applyChange(it)
                 }
     }

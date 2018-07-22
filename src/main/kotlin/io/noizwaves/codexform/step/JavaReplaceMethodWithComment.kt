@@ -11,6 +11,6 @@ class JavaReplaceMethodWithComment(
     }
 
     override fun toString(): String {
-        return "JavaReplaceMethodWithComment($packageName, $className, $method)"
+        return "JavaReplaceMethodWithComment($className, $method)"
     }
 }

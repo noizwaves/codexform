@@ -65,7 +65,7 @@ class JavaDeleteMethod(private val packageName: String, private val className: S
     }
 
     override fun toString(): String {
-        return "DeleteJavaMethod($packageName, $className, $method)"
+        return "DeleteJavaMethod($className, $method)"
     }
 }
 

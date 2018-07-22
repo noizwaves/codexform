@@ -11,6 +11,6 @@ class JavaReplaceMethodWithReturnConstant(
     }
 
     override fun toString(): String {
-        return "JavaReplaceMethodWithReturnConstant($packageName, $className, $method)"
+        return "JavaReplaceMethodWithReturnConstant($className, $method)"
     }
 }

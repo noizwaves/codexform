@@ -60,6 +60,6 @@ class JavaDeleteInitializedField(private val packageName: String, private val cl
     }
 
     override fun toString(): String {
-        return "DeleteJavaField($packageName, $className, $field)"
+        return "DeleteJavaField($className, $field)"
     }
 }
