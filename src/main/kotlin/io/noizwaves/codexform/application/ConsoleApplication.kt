@@ -9,7 +9,6 @@ import java.nio.file.Paths
 fun main(args: Array<String>) {
     val lab5 = Transformation(listOf(
             // FleetTruck
-            JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("returnFromInspection"), "Implement me"),
             JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("fleetDomainEvents")),
 
             // FleetTruckEventStoreRepositoryAdapter
