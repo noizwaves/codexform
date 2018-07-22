@@ -10,10 +10,14 @@ class JavaDeleteImport(
         private val import: String
 ) : Step {
     override fun appliesTo(file: Path): Boolean {
+        if (file.fileName.toString() != "$className.java") {
+            return false
+        }
+
         val lines = Files.readAllLines(file)
 
         val packageMatch = lines.stream().anyMatch { it == "package $packageName;" }
-        val classMatch = lines.stream().anyMatch { it.contains("class $className")}
+        val classMatch = lines.stream().anyMatch { it.contains("class $className") }
 
         return packageMatch && classMatch
     }

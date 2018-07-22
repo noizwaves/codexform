@@ -7,10 +7,14 @@ import kotlin.streams.toList
 
 class JavaDeleteMethod(private val packageName: String, private val className: String, private val method: Method) : Step {
     override fun appliesTo(file: Path): Boolean {
+        if (file.fileName.toString() != "$className.java") {
+            return false
+        }
+
         val lines = Files.readAllLines(file)
 
         val packageMatch = lines.stream().anyMatch { it == "package $packageName;" }
-        val classMatch = lines.stream().anyMatch { it.contains("class $className")}
+        val classMatch = lines.stream().anyMatch { it.contains("class $className") }
 
         return packageMatch && classMatch
     }
@@ -51,7 +55,7 @@ class JavaDeleteMethod(private val packageName: String, private val className: S
         }
     }
 
-    private fun extractIndentation(line : String) : String {
+    private fun extractIndentation(line: String): String {
         var indentation = ""
         for (char in line) {
             if (char.isWhitespace()) {
@@ -69,7 +73,7 @@ class JavaDeleteMethod(private val packageName: String, private val className: S
     }
 }
 
-private fun findLineNumContainingMethod(lines: List<String>, method: Method) : Optional<Int> {
+private fun findLineNumContainingMethod(lines: List<String>, method: Method): Optional<Int> {
     val matchingLines = lines.stream()
             .filter(method::isDeclaredOn)
             .toList()

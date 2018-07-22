@@ -6,6 +6,10 @@ import java.util.*
 
 class JavaDeleteInitializedField(private val packageName: String, private val className: String, private val field: Field) : Step {
     override fun appliesTo(file: Path): Boolean {
+        if (file.fileName.toString() != "$className.java") {
+            return false
+        }
+
         val lines = Files.readAllLines(file)
 
         val packageMatch = lines.stream().anyMatch { it == "package $packageName;" }

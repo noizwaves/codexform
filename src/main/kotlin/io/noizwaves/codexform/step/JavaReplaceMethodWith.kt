@@ -11,10 +11,14 @@ abstract class JavaReplaceMethodWith(
         private val method: Method
 ) : Step {
     override fun appliesTo(file: Path): Boolean {
+        if (file.fileName.toString() != "$className.java") {
+            return false
+        }
+
         val lines = Files.readAllLines(file)
 
         val packageMatch = lines.stream().anyMatch { it == "package $packageName;" }
-        val classMatch = lines.stream().anyMatch { it.contains("class $className")}
+        val classMatch = lines.stream().anyMatch { it.contains("class $className") }
 
         return packageMatch && classMatch
     }
@@ -44,7 +48,7 @@ abstract class JavaReplaceMethodWith(
     abstract fun substitutedLines(workingDir: Path): List<String>
 }
 
-private fun findLineNumContainingMethod(lines: List<String>, method: Method) : Optional<Int> {
+private fun findLineNumContainingMethod(lines: List<String>, method: Method): Optional<Int> {
     val matchingLines = lines.stream()
             .filter(method::isDeclaredOn)
             .toList()
@@ -58,7 +62,7 @@ private fun findLineNumContainingMethod(lines: List<String>, method: Method) : O
     return matchingLine.map { lines.indexOf(it) }
 }
 
-private fun findMethodClosureLineNum(lines: List<String>, declaration: String) : Int {
+private fun findMethodClosureLineNum(lines: List<String>, declaration: String): Int {
     // determine declaration indentation
     var indentationSize = 0
     while (declaration.get(indentationSize) == ' ') {
