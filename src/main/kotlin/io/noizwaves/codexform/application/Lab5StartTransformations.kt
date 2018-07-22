@@ -20,22 +20,22 @@ val lab5StartTransformations = Transformation(listOf(
         JavaReplaceMethodWithOtherMethodBody(
                 "io.pivotal.pal.wehaul.fleet.domain", "FleetTruck",
                 InstanceMethod("returnFromInspection", listOf("String", "int")),
-                Paths.get("banana/FleetTruck.java")
+                Paths.get("40-event-collaboration/fleet/src/main/java/io/pivotal/pal/wehaul/fleet/domain/FleetTruck.java")
         ),
         JavaReplaceMethodWithOtherMethodBody(
                 "io.pivotal.pal.wehaul.fleet.domain", "FleetTruck",
                 InstanceMethod("sendForInspection"),
-                Paths.get("banana/FleetTruck.java")
+                Paths.get("40-event-collaboration/fleet/src/main/java/io/pivotal/pal/wehaul/fleet/domain/FleetTruck.java")
         ),
         JavaReplaceMethodWithOtherMethodBody(
                 "io.pivotal.pal.wehaul.fleet.domain", "FleetTruck",
                 InstanceMethod("removeFromYard"),
-                Paths.get("banana/FleetTruck.java")
+                Paths.get("40-event-collaboration/fleet/src/main/java/io/pivotal/pal/wehaul/fleet/domain/FleetTruck.java")
         ),
         JavaReplaceMethodWithOtherMethodBody(
                 "io.pivotal.pal.wehaul.fleet.domain", "FleetTruck",
                 InstanceMethod("returnToYard", listOf("int")),
-                Paths.get("banana/FleetTruck.java")
+                Paths.get("40-event-collaboration/fleet/src/main/java/io/pivotal/pal/wehaul/fleet/domain/FleetTruck.java")
         ),
 
 
