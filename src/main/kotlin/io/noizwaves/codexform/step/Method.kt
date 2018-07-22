@@ -3,7 +3,7 @@ package io.noizwaves.codexform.step
 import java.util.*
 import kotlin.streams.toList
 
-class Method(private val name: String, private val parameterTypes: List<String>) {
+abstract class Method(private val name: String, private val parameterTypes: List<String>) {
 
     constructor(name: String) : this(name, ArrayList())
 
@@ -37,7 +37,6 @@ class Method(private val name: String, private val parameterTypes: List<String>)
 
         return Optional.of(types)
     }
-
 
     override fun toString(): String {
         return name
