@@ -25,8 +25,8 @@ fun main(args: Array<String>) {
 }
 
 private val transformations = hashMapOf(
-        Pair("lab4start", lab4StartTransformations),
-        Pair("lab5start", lab5StartTransformations)
+        Pair("lab4start", lab4StartTransformation),
+        Pair("lab5start", lab5StartTransformation)
 )
 
 private fun showUsage() {

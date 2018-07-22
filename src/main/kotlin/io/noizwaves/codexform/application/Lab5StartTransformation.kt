@@ -4,7 +4,7 @@ import io.noizwaves.codexform.step.*
 import io.noizwaves.codexform.transformation.Transformation
 import java.nio.file.Paths
 
-val lab5StartTransformations = Transformation(listOf(
+val lab5StartTransformation = Transformation(listOf(
         // FleetTruck
         JavaDeleteImport("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", "java.util.stream.Collectors"),
         JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Constructor("FleetTruck", listOf("List<FleetTruckEvent>"))),

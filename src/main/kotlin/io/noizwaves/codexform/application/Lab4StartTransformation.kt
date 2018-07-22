@@ -6,7 +6,7 @@ import io.noizwaves.codexform.step.JavaReplaceMethodWithComment
 import io.noizwaves.codexform.transformation.Transformation
 import java.nio.file.Paths
 
-val lab4StartTransformations = Transformation(listOf(
+val lab4StartTransformation = Transformation(listOf(
         // Restore controller orchestration from Lab 3
         JavaReplaceFile(
                 "io.pivotal.pal.wehaul.controller", "FleetController",
