@@ -8,6 +8,11 @@ fun main(args: Array<String>) {
     val lab5 = Transformation(listOf(
             // FleetTruck
             JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("fleetDomainEvents")),
+            JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("handleEvent", listOf("FleetTruckEvent"))),
+            JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("handleEvent", listOf("FleetTruckReturnedFromInspection"))),
+            JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("handleEvent", listOf("FleetTruckSentForInspection"))),
+            JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("handleEvent", listOf("FleetTruckRemovedFromYard"))),
+            JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("handleEvent", listOf("FleetTruckReturnedToYard"))),
 
             // FleetTruckEventStoreRepositoryAdapter
             JavaDeleteInitializedField("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", Field("objectMapper", "ObjectMapper")),

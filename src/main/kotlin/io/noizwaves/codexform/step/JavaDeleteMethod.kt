@@ -5,11 +5,7 @@ import java.nio.file.Path
 import java.util.*
 import kotlin.streams.toList
 
-abstract class JavaReplaceMethodWith(
-        private val packageName: String,
-        private val className: String,
-        private val method: Method
-) : Step {
+class JavaDeleteMethod(private val packageName: String, private val className: String, private val method: Method) : Step {
     override fun appliesTo(file: Path): Boolean {
         val lines = Files.readAllLines(file)
 
@@ -28,20 +24,49 @@ abstract class JavaReplaceMethodWith(
         }
 
         val declaredOn = maybeDeclaredOn.get()
-        val declarationLine = lines.get(declaredOn)
-
-        val closedOn = findMethodClosureLineNum(lines, declarationLine)
+        val closedOn = walkForward(lines, declaredOn)
 
         val newContents = sequenceOf(
-                lines.subList(0, declaredOn + 1),
-                substitutedLines(),
-                lines.subList(closedOn, lines.size)
+                lines.subList(0, declaredOn),
+                lines.subList(closedOn + 1, lines.size)
         ).flatten().toList()
 
         Files.write(file, newContents)
     }
 
-    abstract fun substitutedLines(): List<String>
+    private fun walkForward(lines: List<String>, declaredOn: Int): Int {
+        // until initialization is finished
+        var closingLine = extractIndentation(lines[declaredOn]) + "}"
+
+        var closedOn = declaredOn
+        while (!lines.get(closedOn).equals(closingLine)) {
+            closedOn++
+        }
+
+        // If the line after is empty, delete it as well
+        if (lines.get(closedOn + 1).isBlank()) {
+            return closedOn + 1
+        } else {
+            return closedOn
+        }
+    }
+
+    private fun extractIndentation(line : String) : String {
+        var indentation = ""
+        for (char in line) {
+            if (char.isWhitespace()) {
+                indentation += char
+            } else {
+                break;
+            }
+        }
+
+        return indentation
+    }
+
+    override fun toString(): String {
+        return "DeleteJavaMethod($packageName, $className, $method)"
+    }
 }
 
 private fun findLineNumContainingMethod(lines: List<String>, method: Method) : Optional<Int> {
@@ -56,20 +81,4 @@ private fun findLineNumContainingMethod(lines: List<String>, method: Method) : O
     val matchingLine = matchingLines.stream().findFirst()
 
     return matchingLine.map { lines.indexOf(it) }
-}
-
-private fun findMethodClosureLineNum(lines: List<String>, declaration: String) : Int {
-    // determine declaration indentation
-    var indentationSize = 0
-    while (declaration.get(indentationSize) == ' ') {
-        indentationSize += 1
-    }
-
-    val declaredOn = lines.indexOf(declaration)
-    val candidates = lines.subList(declaredOn + 1, lines.size - 1)
-
-    // iterate from declaration to find methods closing closure
-    val indentation = " ".repeat(indentationSize) + "}"
-
-    return candidates.indexOfFirst { it == indentation } + declaredOn + 1
 }
