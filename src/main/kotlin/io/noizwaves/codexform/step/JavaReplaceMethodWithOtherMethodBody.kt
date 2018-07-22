@@ -32,7 +32,7 @@ class JavaReplaceMethodWithOtherMethodBody(
     }
 
     override fun toString(): String {
-        return "JavaReplaceMethodWithOtherMethodBody($targetClassName, $method, $sourceFile)"
+        return "JavaReplaceMethodWithOtherMethodBody($targetClassName, $method, '$sourceFile')"
     }
 }
 

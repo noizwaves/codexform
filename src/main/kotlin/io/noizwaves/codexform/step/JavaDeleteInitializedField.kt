@@ -32,7 +32,6 @@ class JavaDeleteInitializedField(private val packageName: String, private val cl
         ).flatten().toList()
 
         Files.write(file, newContents)
-
     }
 
     private fun findLineNumDeclaringField(lines: List<String>, field: Field): Optional<Int> {
