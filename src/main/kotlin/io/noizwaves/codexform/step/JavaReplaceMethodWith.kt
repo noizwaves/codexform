@@ -3,6 +3,8 @@ package io.noizwaves.codexform.step
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.*
+import java.util.stream.Collectors.toList
+import kotlin.streams.toList
 
 abstract class JavaReplaceMethodWith(
         private val packageName: String,
@@ -15,7 +17,7 @@ abstract class JavaReplaceMethodWith(
         val packageMatch = lines.stream().anyMatch { it == "package $packageName;" }
         val classMatch = lines.stream().anyMatch { it.contains("class $className")}
 
-        return packageMatch and classMatch
+        return packageMatch && classMatch
     }
 
     override fun applyChange(file: Path) {
@@ -44,9 +46,15 @@ abstract class JavaReplaceMethodWith(
 }
 
 private fun findLineNumContainingString(lines: List<String>, method: Method) : Optional<Int> {
-    val matchingLine = lines.stream()
+    val matchingLines = lines.stream()
             .filter(method::isDeclaredOn)
-            .findFirst()
+            .toList()
+
+    if (matchingLines.size > 1) {
+        throw RuntimeException("Multiple methods matching $method found")
+    }
+
+    val matchingLine = matchingLines.stream().findFirst()
 
     return matchingLine.map { lines.indexOf(it) }
 }

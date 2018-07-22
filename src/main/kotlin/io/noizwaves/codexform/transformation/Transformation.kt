@@ -3,7 +3,7 @@ package io.noizwaves.codexform.transformation
 import io.noizwaves.codexform.step.Step
 import java.nio.file.Files
 import java.nio.file.Path
-import java.util.stream.Collectors.toList
+import kotlin.streams.toList
 
 
 class Transformation(private val steps: List<Step>) {
@@ -12,7 +12,7 @@ class Transformation(private val steps: List<Step>) {
     }
 
     private fun applyStep(directory: Path, step: Step) {
-        Files.walk(directory).collect(toList())
+        Files.walk(directory).toList()
                 .stream()
                 .filter { Files.isRegularFile(it) }
                 .filter(step::appliesTo)
