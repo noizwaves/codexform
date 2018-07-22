@@ -1,9 +1,6 @@
 package io.noizwaves.codexform.application
 
-import io.noizwaves.codexform.step.JavaReplaceMethodWithComment
-import io.noizwaves.codexform.step.JavaReplaceMethodWithReturnConstant
-import io.noizwaves.codexform.step.JavaReplaceMethodWithReturnNull
-import io.noizwaves.codexform.step.Method
+import io.noizwaves.codexform.step.*
 import io.noizwaves.codexform.transformation.Transformation
 import java.nio.file.Paths
 
@@ -13,6 +10,7 @@ fun main(args: Array<String>) {
             JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Method("fleetDomainEvents")),
 
             // FleetTruckEventStoreRepositoryAdapter
+            JavaDeleteInitializedField("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", Field("objectMapper", "ObjectMapper")),
             JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", Method("save", listOf("S"))),
             JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", Method("findOne", listOf("String"))),
             JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", Method("findAll")),
