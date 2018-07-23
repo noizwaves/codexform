@@ -8,7 +8,7 @@ Simple Code Transformation "DSL"
 
 ## Running
 
-`gradlew run -- args '<transform dir> <working dir>'`
+`gradlew run -- args '<transformation> <transform dir> <working dir>'`
 
 ## Deploying
 

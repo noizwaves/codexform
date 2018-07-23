@@ -28,22 +28,22 @@ val lab4StartTransformation = Transformation(listOf(
         // Zero out event handler implementations
         JavaReplaceMethodWithComment(
                 "io.pivotal.pal.wehaul.eventlistener", "FleetEventListener",
-                InstanceMethod("onFleetTruckSentForInspection", listOf("FleetTruckSentForInspection")),
+                InstanceMethod("onFleetTruckSentForInspection", "FleetTruckSentForInspection"),
                 "Implement me"
         ),
         JavaReplaceMethodWithComment(
                 "io.pivotal.pal.wehaul.eventlistener", "FleetEventListener",
-                InstanceMethod("onFleetTruckReturnedFromInspection", listOf("FleetTruckReturnedFromInspection")),
+                InstanceMethod("onFleetTruckReturnedFromInspection", "FleetTruckReturnedFromInspection"),
                 "Implement me"
         ),
         JavaReplaceMethodWithComment(
                 "io.pivotal.pal.wehaul.eventlistener", "RentalEventListener",
-                InstanceMethod("onRentalTruckReserved", listOf("RentalTruckReserved")),
+                InstanceMethod("onRentalTruckReserved", "RentalTruckReserved"),
                 "Implement me"
         ),
         JavaReplaceMethodWithComment(
                 "io.pivotal.pal.wehaul.eventlistener", "RentalEventListener",
-                InstanceMethod("onRentalTruckDroppedOff", listOf("RentalTruckDroppedOff")),
+                InstanceMethod("onRentalTruckDroppedOff", "RentalTruckDroppedOff"),
                 "Implement me"
         )
 ))

@@ -4,9 +4,6 @@ import java.util.*
 import kotlin.streams.toList
 
 abstract class Method(private val name: String, private val parameterTypes: List<String>) {
-
-    constructor(name: String) : this(name, ArrayList())
-
     fun isDeclaredOn(line: String): Boolean {
         val nameMatches = line.contains(" $name(")
 

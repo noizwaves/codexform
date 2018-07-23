@@ -7,19 +7,19 @@ import java.nio.file.Paths
 val lab5StartTransformation = Transformation(listOf(
         // FleetTruck
         JavaDeleteImport("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", "java.util.stream.Collectors"),
-        JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Constructor("FleetTruck", listOf("List<FleetTruckEvent>"))),
+        JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", Constructor("FleetTruck", "List<FleetTruckEvent>")),
         JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", InstanceMethod("fleetDomainEvents")),
-        JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", InstanceMethod("handleEvent", listOf("FleetTruckEvent"))),
-        JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", InstanceMethod("handleEvent", listOf("FleetTruckPurchased"))),
-        JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", InstanceMethod("handleEvent", listOf("FleetTruckReturnedFromInspection"))),
-        JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", InstanceMethod("handleEvent", listOf("FleetTruckSentForInspection"))),
-        JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", InstanceMethod("handleEvent", listOf("FleetTruckRemovedFromYard"))),
-        JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", InstanceMethod("handleEvent", listOf("FleetTruckReturnedToYard"))),
+        JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", InstanceMethod("handleEvent", "FleetTruckEvent")),
+        JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", InstanceMethod("handleEvent", "FleetTruckPurchased")),
+        JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", InstanceMethod("handleEvent", "FleetTruckReturnedFromInspection")),
+        JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", InstanceMethod("handleEvent", "FleetTruckSentForInspection")),
+        JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", InstanceMethod("handleEvent", "FleetTruckRemovedFromYard")),
+        JavaDeleteMethod("io.pivotal.pal.wehaul.fleet.domain", "FleetTruck", InstanceMethod("handleEvent", "FleetTruckReturnedToYard")),
 
         // Copy FleetTruck implementation from lab 4
         JavaReplaceMethodWithOtherMethodBody(
                 "io.pivotal.pal.wehaul.fleet.domain", "FleetTruck",
-                InstanceMethod("returnFromInspection", listOf("String", "int")),
+                InstanceMethod("returnFromInspection", "String", "int"),
                 Paths.get("40-event-collaboration/fleet/src/main/java/io/pivotal/pal/wehaul/fleet/domain/FleetTruck.java")
         ),
         JavaReplaceMethodWithOtherMethodBody(
@@ -34,7 +34,7 @@ val lab5StartTransformation = Transformation(listOf(
         ),
         JavaReplaceMethodWithOtherMethodBody(
                 "io.pivotal.pal.wehaul.fleet.domain", "FleetTruck",
-                InstanceMethod("returnToYard", listOf("int")),
+                InstanceMethod("returnToYard", "int"),
                 Paths.get("40-event-collaboration/fleet/src/main/java/io/pivotal/pal/wehaul/fleet/domain/FleetTruck.java")
         ),
 
@@ -54,21 +54,21 @@ val lab5StartTransformation = Transformation(listOf(
         JavaDeleteImport("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", "java.util.Map"),
         JavaDeleteImport("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", "java.util.stream.Collectors"),
         JavaDeleteInitializedField("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", Field("objectMapper", "ObjectMapper")),
-        JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", InstanceMethod("save", listOf("S"))),
-        JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", InstanceMethod("findOne", listOf("String"))),
+        JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", InstanceMethod("save", "S")),
+        JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", InstanceMethod("findOne", "String")),
         JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "FleetTruckEventStoreRepositoryAdapter", InstanceMethod("findAll")),
 
         // EventPublishingFleetTruckRepositoryDecorator
         JavaDeleteImport("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", "java.util.stream.StreamSupport"),
-        JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("save", listOf("S"))),
-        JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("save", listOf("Iterable<S>"))),
-        JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("findOne", listOf("String"))),
-        JavaReplaceMethodWithReturnConstant("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("exists", listOf("String")), "false"),
+        JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("save", "S")),
+        JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("save", "Iterable<S>")),
+        JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("findOne", "String")),
+        JavaReplaceMethodWithReturnConstant("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("exists", "String"), "false"),
         JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("findAll")),
-        JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("findAll", listOf("Iterable<String>"))),
+        JavaReplaceMethodWithReturnNull("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("findAll", "Iterable<String>")),
         JavaReplaceMethodWithReturnConstant("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("count"), "-1"),
-        JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("delete", listOf("String")), "Implement me"),
-        JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("delete", listOf("FleetTruck")), "Implement me"),
-        JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("delete", listOf("Iterable<? extends FleetTruck>")), "Implement me"),
+        JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("delete", "String"), "Implement me"),
+        JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("delete", "FleetTruck"), "Implement me"),
+        JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("delete", "Iterable<? extends FleetTruck>"), "Implement me"),
         JavaReplaceMethodWithComment("io.pivotal.pal.wehaul.adapter", "EventPublishingFleetTruckRepositoryDecorator", InstanceMethod("deleteAll"), "Implement me")
 ))
